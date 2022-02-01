@@ -1,4 +1,4 @@
-@@@@@@@@@@@@@@@@@@@@@@@@@@ terraformcodesDecemberbatch @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@ terraformcodesDecemberbatch @@@@@@
 This code is actively worked on by december batch engineers.
 Copy and reuse master code only if you wan to depoy a working Infrastructure.
 
