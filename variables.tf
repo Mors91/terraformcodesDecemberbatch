@@ -1,6 +1,6 @@
 variable "region" {
-    description = "This the aws region for all of our deployments"
-    default = "us-east-1"
+description = "this is the aws region for all of our deployment"
+default = "london east 1a"
 }
 
 variable "access_key" {}
