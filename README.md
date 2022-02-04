@@ -35,3 +35,5 @@ CLOUDWATCH
 CLOUDTRAIL
 AUTOSCALE
 EBS VOLUME
+
+<ssh-keygen -f windowsServerKey -m PEM>
