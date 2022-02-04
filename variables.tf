@@ -1,7 +1,19 @@
 variable "region" {
   description = "this the aws region for all of our deployment"
-  default     = "eu-west-2"
+  default     = "us-east-1"
 }
 
 variable "access_key" {}
 variable "secret_key" {}
+
+variable "cidr_block" {
+  description = "cidr block for creating public subnet"
+  type        = string
+  default     = "10.0.1.0/24"
+}
+
+variable "key_path" {
+  description = "windows public key"
+  type        = string
+  default     = "windowsServerKey.pub"
+}
