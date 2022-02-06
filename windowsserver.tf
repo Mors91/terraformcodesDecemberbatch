@@ -5,17 +5,13 @@ resource "aws_instance" "windowsServer" {
   subnet_id              = aws_subnet.main-public.id
   vpc_security_group_ids = [aws_security_group.allow_rdp.id]
 
-  tags = {
-    Name        = "windowsServer"
-    Environment = "dev"
-    Managedwith = "terraform"
-  }
+  tags = merge(local.common_tags, { Name = "windowsServer" , Company = "EliteSolutionsIT"})
 }
 
 ///key
 resource "aws_key_pair" "deployer" {
   key_name   = "windowsServerKey"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDA/6zlyF+IOvnM7bPajfg4Fi4FB9Ki7KXcmPjAdVb4mhCnHa9F5GVLftPJkFAH5yjBxVhC9YVaScupK04o1VHHnvUG4OyV5h1P1C1CBFY1xZcRW4aNA30eAQvJBnG4EGn8mPU9Jd8cCaDbU+AeAtYb9l8XjMHnZrwHoUBWMoYOjHb7LiMuxnEcVTYqMuzbCfoorDVSxglML8DNphJoHLSPpz7VZkoFVgox91jErhuxDncR4IZBHTMFbgJBCbd68aYyuR30ErabdPzwC14cUYnfPmYgl1Pahw9iLArNjSB8uaVtbylilC6w6Ris9pdN02kn9prz+SWiDAUxMPUN8HedKgGhr4JQMpzQsY6O2ogFv74fPpWba8UfA2I5XhB4JC1Cau1tZWxd77uHYEHiPINETGcD8BMeNOgVlYkFQYGzjeEWnuP0xTZpyalgliv9FnOkJJ6aEt1iTJy9IW8eUYDhif/Ts0NdVqh9qPjuDVGTXcOTubuWS4QD8NLIm03vOTM= lbena@LAPTOP-QB0DU4OG"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCd6i89t5qJrsRvwFs/Wt7aTUFSw0h1zGzqmP2bHMZEr7Z5zOT7zbQf5KxzC76YiuJDR8C5wDHohH4XEF40Ry2xoV+WsGsWI0jRfH/7Z9bePX3+Ck7aF23LGoAtSXPtf8Wkn5R7XJIJpI3qTMIF9kmRX11/tE3o3BDslwtubS5xGcyMrMb3zjKNAuc5cE6h0QSrLXzahRvL2qEwryW0Dg2wr2zkIYyhI1cbUVZiHTsckpNNcic/PmgTaS4in7zMwy2dhHcQIwkOv802ylNfOpppftVz4OnjBlMB7L3EeRJYbRvvx1tRSir43uxpyIoM5JmZygKw44gf+x2/v0PGb6psoKLC3oUCKt0Nm4mf4CrqPFnI+x9AV1M7rdFiCEQRw8yOXH5kvRup0XQnaK96si+I5IlaALKtfOQvIhYziPpY8+QSMindn1roijLq2NwWnKBcSXoqmjq2UKfQ+rbu1UbBZ0sSGfiLWXmBeOIUzNDSFPYGZMbIUyjiZZ/pbnJ9bik= lbena@LAPTOP-QB0DU4OG"
 }
 
 ///Security Group

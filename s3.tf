@@ -1,17 +1,13 @@
-resource "aws_s3_bucket" "my-bucket" {
-  bucket = "elitebucketdev"
+resource "aws_s3_bucket" "elitebucketdev" {
+  bucket = join("-", [local.network.Environment, "elitebucket"])
   acl    = "private"
 
-  tags = {
-    Name        = "elitebucketdev"
-    Environment = "dev"
-    Managedwith = "terraform"
-  }
+  tags = local.common_tags
 }
 
 //policy
 resource "aws_iam_policy" "replication" {
-  name = "elite-bucket-policy"
+  name = join("-", [local.network.Environment, "bucketPolicy"])
 
   policy = <<POLICY
 {
@@ -24,7 +20,7 @@ resource "aws_iam_policy" "replication" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "${aws_s3_bucket.my-bucket.arn}"
+        "${aws_s3_bucket.elitebucketdev.arn}"
       ]
     },
     {
@@ -35,7 +31,7 @@ resource "aws_iam_policy" "replication" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "${aws_s3_bucket.my-bucket.arn}/*"
+        "${aws_s3_bucket.elitebucketdev.arn}/*"
       ]
     },
     {
@@ -45,14 +41,10 @@ resource "aws_iam_policy" "replication" {
         "s3:ReplicateTags"
       ],
       "Effect": "Allow",
-      "Resource": "${aws_s3_bucket.my-bucket.arn}/*"
+      "Resource": "${aws_s3_bucket.elitebucketdev.arn}/*"
     }
   ]
 }
 POLICY
-  tags = {
-    Name        = "elitebucketdevPolicy"
-    Environment = "dev"
-    Managedwith = "terraform"
-  }
+  tags   = local.common_tags
 }

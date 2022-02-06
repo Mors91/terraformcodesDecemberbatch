@@ -3,9 +3,6 @@ variable "region" {
   default     = "us-east-1"
 }
 
-variable "access_key" {}
-variable "secret_key" {}
-
 variable "cidr_block" {
   description = "cidr block for creating public subnet"
   type        = string

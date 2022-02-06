@@ -4,12 +4,7 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = "true"
 
 
-  tags = {
-    Name        = "main-vpc"
-    Env         = "stage"
-    ManagedWith = "Terraform"
-
-  }
+  tags = local.common_tags
 }
 
 ////subnet - public
@@ -19,12 +14,7 @@ resource "aws_subnet" "main-public" {
   map_public_ip_on_launch = true
   availability_zone       = "us-east-1a"
 
-  tags = {
-    Name        = "public-subnet"
-    Env         = "stage"
-    ManagedWith = "Terraform"
-
-  }
+  tags = local.common_tags
 }
 
 ////subnet - private
@@ -33,21 +23,13 @@ resource "aws_subnet" "main-private" {
   cidr_block        = "10.0.2.0/24"
   availability_zone = "us-east-1b"
 
-  tags = {
-    Name        = "private-subnet"
-    Env         = "stage"
-    ManagedWith = "Terraform"
-  }
+  tags = local.common_tags
 }
 
 ///igw
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
-  tags = {
-    Name        = "igw"
-    Env         = "stage"
-    ManagedWith = "Terraform"
-  }
+  tags   = local.common_tags
 }
 
 ////route table
@@ -59,11 +41,7 @@ resource "aws_route_table" "rtb" {
     gateway_id = aws_internet_gateway.igw.id
   }
 
-  tags = {
-    Name        = "route-table"
-    Env         = "stage"
-    ManagedWith = "Terraform"
-  }
+  tags = local.common_tags
 }
 
 ///subnet association
