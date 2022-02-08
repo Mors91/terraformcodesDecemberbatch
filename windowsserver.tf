@@ -5,7 +5,7 @@ resource "aws_instance" "windowsServer" {
   subnet_id              = aws_subnet.main-public.id
   vpc_security_group_ids = [aws_security_group.allow_rdp.id]
 
-  tags = merge(local.common_tags, { Name = "windowsServer" , Company = "EliteSolutionsIT"})
+  tags = merge(local.common_tags, { Name = "windowsServer", Company = "EliteSolutionsIT" })
 }
 
 ///key

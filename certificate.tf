@@ -2,7 +2,7 @@ resource "aws_acm_certificate" "cert" {
   domain_name       = "elitelabtools.com"
   validation_method = "DNS"
 
-  tags = merge(local.common_tags, { Name = "windowsServer-certificate" , Company = "EliteSolutionsIT", franchise = "morscorp" })
+  tags = merge(local.common_tags, { Name = "windowsServer-certificate", Company = "EliteSolutionsIT", franchise = "morscorp" })
 
   lifecycle {
     create_before_destroy = true

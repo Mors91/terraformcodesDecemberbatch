@@ -17,6 +17,15 @@ resource "aws_subnet" "main-public" {
   tags = local.common_tags
 }
 
+resource "aws_subnet" "main-public-2" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = var.cidr_blockB
+  map_public_ip_on_launch = true
+  availability_zone       = "us-east-1c"
+
+  tags = local.common_tags
+}
+
 ////subnet - private
 resource "aws_subnet" "main-private" {
   vpc_id            = aws_vpc.main.id

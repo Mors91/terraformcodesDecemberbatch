@@ -2,3 +2,26 @@ data "aws_route53_zone" "elitelabtools" {
   name         = "elitelabtools.com"
   private_zone = false
 }
+
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+
+  owners = ["099720109477"] # Canonical
+}
+
+data "cloudinit_config" "userdata" {
+  gzip          = true
+  base64_encode = true
+
+  # Main cloud-config configuration file.
+  part {
+    content_type = "text/x-shellscript"
+    filename     = "userdata_nginx"
+    content      = templatefile("./templates/userdata_nginx.tpl", {})
+  }
+}
