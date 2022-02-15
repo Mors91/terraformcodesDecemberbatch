@@ -21,7 +21,7 @@ data "cloudinit_config" "userdata" {
   # Main cloud-config configuration file.
   part {
     content_type = "text/x-shellscript"
-    filename     = "userdata_nginx"
-    content      = templatefile("./templates/userdata_nginx.tpl", {})
+    filename     = "userdata_jenkins"
+    content      = templatefile("./templates/userdata_jenkins.tpl", {})
   }
 }

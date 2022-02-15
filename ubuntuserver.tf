@@ -51,7 +51,7 @@ resource "aws_security_group" "allow_ssh" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["70.114.65.185/32"]
+    security_groups = [aws_security_group.allow_alb.id]
   }
 
   ingress {
@@ -70,6 +70,14 @@ resource "aws_security_group" "allow_ssh" {
     cidr_blocks = ["70.114.65.185/32"]
   }
 
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    security_groups = [aws_security_group.allow_alb.id]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -79,6 +87,34 @@ resource "aws_security_group" "allow_ssh" {
 
   tags = {
     Name        = "ubuntu-sg"
+    Environment = "dev"
+    Managedwith = "terraform"
+  }
+}
+
+///alb sg
+resource "aws_security_group" "allow_alb" {
+  name        = join("-", [local.network.Environment, "allow_alb"])
+  description = "Allow RDP inbound traffic"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["70.114.65.185/32"]
+  }
+
+    ingress {
+    description = "TLS from VPC"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["70.114.65.185/32"]
+  }
+    tags = {
+    Name        = "alb-sg"
     Environment = "dev"
     Managedwith = "terraform"
   }

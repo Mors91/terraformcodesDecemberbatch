@@ -48,3 +48,25 @@ resource "aws_iam_policy" "replication" {
 POLICY
   tags   = local.common_tags
 }
+
+//s3 policy
+resource "aws_s3_bucket_policy" "bucket_policy" {
+  bucket = aws_s3_bucket.elitebucketdev.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Id      = "MYBUCKETPOLICY"
+    Statement = [
+      {
+        Sid       = "Allow"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = "s3:*"
+        Resource = [
+          aws_s3_bucket.elitebucketdev.arn,
+          "${aws_s3_bucket.elitebucketdev.arn}/*",
+        ]
+      },
+    ]
+  })
+}
